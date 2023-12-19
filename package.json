@@ -1,0 +1,21 @@
+{
+  "name": "legoland-gift",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite & bun run watch:tailwind",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "watch:tailwind": "tailwindcss --watch --input ./src/style.css --output ./dist/style.css"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.7",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8"
+  },
+  "dependencies": {
+    "@types/matter-js": "^0.19.5",
+    "matter-js": "^0.19.0"
+  }
+}
