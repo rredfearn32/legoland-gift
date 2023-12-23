@@ -15,7 +15,18 @@ const screenHeight = window.innerHeight;
 
 const isSleeping = true;
 
-const colors = ["red", "blue", "green", "yellow", "white", "black"];
+const colors = [
+  "red",
+  "orange",
+  "yellow",
+  "green",
+  "blue",
+  "navy",
+  "violet",
+  "pink",
+  "grey",
+  "turquoise",
+];
 
 // create an engine
 var engine = Engine.create();
@@ -89,11 +100,20 @@ for (let i = 0; i < 6; i++) {
       y = screenHeight / 2 + height / 2 + positionCountY * height;
     }
 
+    const chosenColor = colors[Math.floor(Math.random() * 10)];
+
     blocks.push(
       Bodies.rectangle(x, y, width, height, {
         isSleeping,
         render: {
-          fillStyle: colors[Math.floor((Math.random() * 100) / 5)],
+          sprite: {
+            texture: `/assets/images/${
+              colors[Math.floor(Math.random() * 10)]
+            }.png`,
+            xScale: 0.405,
+            yScale: 0.409,
+          },
+          fillStyle: chosenColor,
           lineWidth: 0,
         },
       })
