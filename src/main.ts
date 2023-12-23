@@ -13,7 +13,7 @@ import {
 const screenWidth = window.innerWidth;
 const screenHeight = window.innerHeight;
 
-const isSleeping = true;
+const isSleeping = false;
 
 const colors = [
   "red",
@@ -38,11 +38,23 @@ var render = Render.create({
   options: {
     height: screenHeight,
     width: screenWidth,
-    background: "rgba(255,255,255,1)",
+    background: "rgb(239, 68, 68, 0)",
     wireframes: false,
   },
 });
 
+const platform = Bodies.rectangle(
+  screenWidth / 2,
+  screenHeight / 2 + 50 * 5,
+  screenWidth,
+  100,
+  {
+    isStatic: true,
+    render: {
+      fillStyle: "transparent",
+    },
+  }
+);
 const ground = Bodies.rectangle(
   screenWidth / 2,
   screenHeight + 50,
@@ -50,18 +62,27 @@ const ground = Bodies.rectangle(
   100,
   {
     isStatic: true,
+    render: {
+      fillStyle: "black",
+    },
   }
 );
 const ceiling = Bodies.rectangle(screenWidth / 2, -100, screenWidth, 100, {
   isStatic: true,
 });
-const leftWall = Bodies.rectangle(0, screenHeight - 1, 1, screenHeight * 2, {
-  isStatic: true,
-});
-const rightWall = Bodies.rectangle(
-  screenWidth,
+const leftWall = Bodies.rectangle(
+  -50,
   screenHeight - 1,
-  1,
+  100,
+  screenHeight * 2,
+  {
+    isStatic: true,
+  }
+);
+const rightWall = Bodies.rectangle(
+  screenWidth + 50,
+  screenHeight - 1,
+  100,
   screenHeight * 2,
   {
     isStatic: true,
@@ -100,8 +121,6 @@ for (let i = 0; i < 6; i++) {
       y = screenHeight / 2 + height / 2 + positionCountY * height;
     }
 
-    const chosenColor = colors[Math.floor(Math.random() * 10)];
-
     blocks.push(
       Bodies.rectangle(x, y, width, height, {
         isSleeping,
@@ -113,7 +132,6 @@ for (let i = 0; i < 6; i++) {
             xScale: 0.405,
             yScale: 0.409,
           },
-          fillStyle: chosenColor,
           lineWidth: 0,
         },
       })
@@ -126,7 +144,14 @@ for (let i = 0; i < 6; i++) {
 }
 
 // add all of the bodies to the world
-Composite.add(engine.world, [...blocks, ground, ceiling, leftWall, rightWall]);
+Composite.add(engine.world, [
+  ...blocks,
+  ground,
+  platform,
+  ceiling,
+  leftWall,
+  rightWall,
+]);
 
 // run the renderer
 Render.run(render);
@@ -138,6 +163,8 @@ var runner = Runner.create();
 Runner.run(runner, engine);
 
 render.canvas.onclick = () => {
+  Composite.remove(engine.world, platform);
+
   blocks.forEach((i) => {
     Sleeping.set(i, false);
     render.options.background = "rgba(255,255,255,0)";
@@ -145,7 +172,7 @@ render.canvas.onclick = () => {
 
     const randomX = Math.random() * (isNegative ? -1 : 1);
     const randomY = Math.random() * (isNegative ? -1 : 1);
-    i.force = { x: randomX / 5, y: randomY / 5 };
+    i.force = { x: randomX / 3, y: randomY / 3 };
   });
 
   render.canvas.onclick = () => {};
