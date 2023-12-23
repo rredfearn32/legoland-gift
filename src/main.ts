@@ -6,6 +6,8 @@ import {
   Composite,
   Body,
   Sleeping,
+  Mouse,
+  MouseConstraint,
 } from "matter-js";
 
 const screenWidth = window.innerWidth;
@@ -125,4 +127,23 @@ render.canvas.onclick = () => {
     const randomY = Math.random() * (isNegative ? -1 : 1);
     i.force = { x: randomX / 5, y: randomY / 5 };
   });
+
+  render.canvas.onclick = () => {};
+
+  // add mouse control
+  var mouse = Mouse.create(render.canvas),
+    mouseConstraint = MouseConstraint.create(engine, {
+      mouse: mouse,
+      constraint: {
+        stiffness: 0.2,
+        render: {
+          visible: false,
+        },
+      },
+    });
+
+  Composite.add(engine.world, mouseConstraint);
+
+  // keep the mouse in sync with rendering
+  render.mouse = mouse;
 };
