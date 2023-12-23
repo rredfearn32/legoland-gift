@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite & bun run watch:tailwind",
-    "build": "tsc && vite build",
+    "build": "tsc && bun run build:tailwind && vite build",
     "preview": "vite preview",
-    "watch:tailwind": "tailwindcss --watch --input ./src/style.css --output ./dist/style.css"
+    "watch:tailwind": "tailwindcss --watch --input ./src/style.css --output ./dist/style.css",
+    "build:tailwind": "tailwindcss --input ./src/style.css --output ./dist/style.css"
   },
   "devDependencies": {
     "tailwindcss": "^3.3.7",

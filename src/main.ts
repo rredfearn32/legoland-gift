@@ -32,7 +32,7 @@ var render = Render.create({
 
 const ground = Bodies.rectangle(
   screenWidth / 2,
-  screenHeight - 1,
+  screenHeight + 50,
   screenWidth,
   100,
   {
