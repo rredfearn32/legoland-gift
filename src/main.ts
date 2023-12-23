@@ -108,6 +108,7 @@ document.onkeydown = (event) => {
 };
 
 render.canvas.onclick = () => {
+  document.querySelector("#content")?.classList.remove("hidden");
   Composite.remove(engine.world, platform);
 
   blocks.forEach((i) => {
