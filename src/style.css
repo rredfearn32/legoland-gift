@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: lego;
+    src: url(/assets/fonts/LEGO.ttf);
+}

@@ -2,7 +2,11 @@
 export default {
   content: ["index.html"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        lego: ["lego", "sans-serif"],
+      },
+    },
   },
   plugins: [],
 };
